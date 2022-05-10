@@ -14,3 +14,5 @@ dependencyResolutionManagement {
 }
 rootProject.name = "MMVB Exchange Rates"
 include ':app'
+include ':sources'
+include ':sources:core'
