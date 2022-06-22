@@ -1,4 +1,4 @@
-package com.green.coreapi.mediator
+package com.belyaninrom.core_api.mediator
 
 import android.content.Context
 

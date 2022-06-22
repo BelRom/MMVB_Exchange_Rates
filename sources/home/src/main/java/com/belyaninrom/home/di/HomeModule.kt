@@ -1,4 +1,4 @@
-package com.green.habits.home.di
+package com.belyaninrom.home.di
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

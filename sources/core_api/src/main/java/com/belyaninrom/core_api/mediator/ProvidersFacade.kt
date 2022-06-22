@@ -1,5 +1,5 @@
 package com.belyaninrom.core_api.mediator
 
-import com.green.coreapi.mediator.AppProvider
+import com.belyaninrom.core_api.database.DatabaseProvider
 
-interface ProvidersFacade : AppProvider, NetworkProvider
+interface ProvidersFacade : AppProvider, NetworkProvider, DatabaseProvider

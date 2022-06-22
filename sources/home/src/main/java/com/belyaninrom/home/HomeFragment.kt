@@ -14,8 +14,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.belyaninrom.home.view.CurrencyRVAdapter
 import com.belyaninrom.home.model.Result
-import com.green.coreapi.mediator.AppWithFacade
-import com.green.habits.home.di.HomeComponent
+import com.belyaninrom.core_api.mediator.AppWithFacade
+import com.belyaninrom.home.di.HomeComponent
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.flow.collect
 import javax.inject.Inject

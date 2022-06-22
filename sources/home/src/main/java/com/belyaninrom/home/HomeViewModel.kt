@@ -2,8 +2,13 @@ package com.belyaninrom.home
 
 import android.util.Log
 import androidx.lifecycle.*
+import com.belyaninrom.core_api.database.CurrenciesDatabaseContract
+import com.belyaninrom.core_api.database.DatabaseProvider
+import com.belyaninrom.core_api.dto.CurrencyView
+import com.belyaninrom.core_api.dto.toCurrencyDb
+import com.belyaninrom.core_api.dto.toCurrencyView
 import com.belyaninrom.network.NetworkMoex
-import com.belyaninrom.network.model.Currency
+import com.belyaninrom.network.model.CurrencyNetwork
 import com.belyaninrom.home.model.Result
 import com.belyaninrom.network.model.NetworkResult
 import kotlinx.coroutines.CoroutineExceptionHandler
@@ -14,13 +19,14 @@ import kotlinx.coroutines.launch
 
 class HomeViewModel
 constructor(
-    private val networkMoex: NetworkMoex
+    private val networkMoex: NetworkMoex,
+    private val database: CurrenciesDatabaseContract
 ) : ViewModel() {
 
-    private val _currenciesState = MutableStateFlow<Result<List<Currency>>>(
+    private val _currenciesState = MutableStateFlow<Result<List<CurrencyView>>>(
         Result.StartLoading
     )
-    val currenciesState: StateFlow<Result<List<Currency>>> = _currenciesState
+    val currenciesState: StateFlow<Result<List<CurrencyView>>> = _currenciesState
 
     val exceptionHandler = CoroutineExceptionHandler { coroutineContext, throwable ->
         _currenciesState.value = Result.Error(throwable)
@@ -33,12 +39,19 @@ constructor(
             Log.d("HomeViewModel", "response $response")
             when (response) {
                 is NetworkResult.Success -> {
-                    _currenciesState.value = Result.Success(response.data)
+                    database.currencyDao().setCurrencies(response.data.map { it.toCurrencyDb() })
+                    _currenciesState.value =
+                        Result.Success(response.data.map { it.toCurrencyView() })
                 }
                 is NetworkResult.Error -> {
-                    _currenciesState.value = Result.Error(Exception("${response.code} ${response.message}"))
+                    _currenciesState.value = Result.Success(
+                        database.currencyDao().getCurrencies().map { it.toCurrencyView() })
+                    _currenciesState.value =
+                        Result.Error(Exception("${response.code} ${response.message}"))
                 }
                 is NetworkResult.Exception -> {
+                    _currenciesState.value = Result.Success(
+                        database.currencyDao().getCurrencies().map { it.toCurrencyView() })
                     _currenciesState.value = Result.Error(response.e)
                 }
             }
@@ -47,10 +60,11 @@ constructor(
 }
 
 class HomeViewModelFactory @Inject constructor(
-    val networkMoex: NetworkMoex
+    val networkMoex: NetworkMoex,
+    val database: CurrenciesDatabaseContract
 ) : ViewModelProvider.Factory {
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        return HomeViewModel(networkMoex) as T
+        return HomeViewModel(networkMoex, database) as T
     }
 }

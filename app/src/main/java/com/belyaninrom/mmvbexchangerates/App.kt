@@ -2,8 +2,7 @@ package com.belyaninrom.mmvbexchangerates
 
 import android.app.Application
 import com.belyaninrom.core_api.mediator.ProvidersFacade
-import com.green.coreapi.mediator.AppWithFacade
-import com.green.habits.FacadeComponent
+import com.belyaninrom.core_api.mediator.AppWithFacade
 
 class App: Application(), AppWithFacade {
     companion object {

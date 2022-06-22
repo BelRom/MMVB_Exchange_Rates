@@ -1,14 +1,11 @@
 package com.belyaninrom.network
 
-import android.util.Log
 import com.belyaninrom.network.di.NetworkComponent
-import com.belyaninrom.network.model.Currency
+import com.belyaninrom.network.model.CurrencyNetwork
 import com.belyaninrom.network.model.NetworkResult
-import com.belyaninrom.network.model.Result
 import com.google.gson.Gson
 import org.json.JSONObject
 import javax.inject.Inject
-import javax.inject.Named
 
 class NetworkMoexImpl @Inject constructor(): NetworkMoex {
 
@@ -19,11 +16,11 @@ class NetworkMoexImpl @Inject constructor(): NetworkMoex {
         NetworkComponent.create().inject(this)
     }
 
-    override suspend fun currentPrice(): NetworkResult<List<Currency>> {
+    override suspend fun currentPrice(): NetworkResult<List<CurrencyNetwork>> {
         val response = restService.getCurrentPrice()
         return when (response) {
              is NetworkResult.Success ->
-                NetworkResult.Success<List<Currency>>(parseListCurrency(response.data))
+                NetworkResult.Success<List<CurrencyNetwork>>(parseListCurrency(response.data))
             is NetworkResult.Error -> response
             is NetworkResult.Exception -> response
         }
@@ -34,22 +31,22 @@ class NetworkMoexImpl @Inject constructor(): NetworkMoex {
         from: String,
         till: String,
         size: Int
-    ): NetworkResult<List<Currency>> {
+    ): NetworkResult<List<CurrencyNetwork>> {
         val response = restService.getPriceWithTime(secId, from, till, size)
         return when (response) {
             is NetworkResult.Success ->
-                NetworkResult.Success<List<Currency>>(parseListCurrency(response.data))
+                NetworkResult.Success<List<CurrencyNetwork>>(parseListCurrency(response.data))
             is NetworkResult.Error -> response
             is NetworkResult.Exception -> response
         }
     }
 
-    private fun parseListCurrency(response: Any?): List<Currency> {
+    private fun parseListCurrency(response: Any?): List<CurrencyNetwork> {
         val json = Gson().toJson(response)
         val jsonObject = JSONObject(json)
         val securities = jsonObject.getJSONObject("securities")
         val data = securities.getJSONArray("data")
-        val list = ArrayList<Currency>()
+        val list = ArrayList<CurrencyNetwork>()
 
         for (i in 0 until data.length()) {
             val jsonCurrency = data.getJSONArray(i)
@@ -58,8 +55,8 @@ class NetworkMoexImpl @Inject constructor(): NetworkMoex {
             val secId = jsonCurrency.getString(2)
             val rate = jsonCurrency.getDouble(3)
 
-            val currency = Currency(tradeDate, tradeTime, secId, rate)
-            list.add(currency)
+            val currencyNetwork = CurrencyNetwork(tradeDate, tradeTime, secId, rate)
+            list.add(currencyNetwork)
         }
         return list.toList()
     }

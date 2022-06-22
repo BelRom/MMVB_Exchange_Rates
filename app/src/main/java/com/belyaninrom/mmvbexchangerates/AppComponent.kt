@@ -1,8 +1,8 @@
-package com.green.habits
+package com.belyaninrom.mmvbexchangerates
 
 import android.app.Application
 import android.content.Context
-import com.green.coreapi.mediator.AppProvider
+import com.belyaninrom.core_api.mediator.AppProvider
 import dagger.Component
 import dagger.BindsInstance
 import javax.inject.Singleton

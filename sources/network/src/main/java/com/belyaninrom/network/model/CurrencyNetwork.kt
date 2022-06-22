@@ -1,6 +1,6 @@
-package com.belyaninrom.core_api.dto
+package com.belyaninrom.network.model
 
-data class Currency (
+data class CurrencyNetwork(
     val tradeDate: String,
     val tradeTime: String,
     val secId: String,

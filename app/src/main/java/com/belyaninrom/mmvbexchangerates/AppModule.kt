@@ -1,4 +1,4 @@
-package com.green.habits
+package com.belyaninrom.mmvbexchangerates
 
 import android.content.Context
 import android.content.SharedPreferences
@@ -12,7 +12,7 @@ abstract class AppModule {
     @Module
     companion object {
 
-        private const val PREFS_NAME = "HABITS_SP"
+        private const val PREFS_NAME = "CURRENCIES_TOKEN"
 
         @JvmStatic
         @Provides

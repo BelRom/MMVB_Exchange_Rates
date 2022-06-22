@@ -1,4 +1,4 @@
-package com.green.habits.home.di
+package com.belyaninrom.home.di
 
 import com.belyaninrom.core_api.mediator.ProvidersFacade
 import com.belyaninrom.home.HomeFragment
@@ -15,8 +15,7 @@ interface HomeComponent {
     companion object {
 
         fun create(providersFacade: ProvidersFacade): HomeComponent {
-            return DaggerHomeComponent
-                .builder()
+            return DaggerHomeComponent.builder()
                 .providersFacade(providersFacade)
                 .build()
         }
