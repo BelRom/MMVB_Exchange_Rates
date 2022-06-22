@@ -1,0 +1,3 @@
+<resources>
+    <string name="no_internet_error">Не удалось получить ответ от сервером</string>
+</resources>

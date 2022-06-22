@@ -1,15 +1,22 @@
 ext {
-    retrofitVersion = '2.6.1'
+    retrofitVersion = '2.9.0'
+    gsonVersion = '2.9.0'
     jsr330Version = '1'
     daggerVersion = '2.40.1'
     roomVersion = '2.1.0'
     picassoVersion = '2.71828'
     flexLayoutVersion = '1.1.1'
     viewPager2Version = '1.0.0-rc01'
-    coroutinesVersion = '1.1.1'
+    coroutinesVersion = '1.4.3'
     materialVersion = '1.1.0-beta02'
+    viewmodelVersion = '2.3.1'
+    navVersion = '2.4.2'
+    viewBindingVersion = '1.4.5'
+    loggingInterceptorVersion = '4.10.0'
 
     retrofit = "com.squareup.retrofit2:retrofit:$retrofitVersion"
+    loggingInterceptor = "com.squareup.okhttp3:logging-interceptor:$loggingInterceptorVersion"
+    gson = "com.squareup.retrofit2:converter-gson:$gsonVersion"
     jsr330 = "javax.inject:javax.inject:$jsr330Version"
     dagger = "com.google.dagger:dagger:$daggerVersion"
     daggerCompiler = "com.google.dagger:dagger-compiler:$daggerVersion"
@@ -22,17 +29,12 @@ ext {
             'coroutines_core'   : "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion",
             'coroutines_android': "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion"
     ]
+    navigationDependencies = [
+            'navigation_fragment': "androidx.navigation:navigation-fragment-ktx:$navVersion",
+            'navigation_ui'      : "androidx.navigation:navigation-ui-ktx:$navVersion"
+    ]
 
     material = "com.google.android.material:material:$materialVersion"
-
-//    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
-//    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
-//    implementation 'com.google.code.gson:gson:2.8.6'
-//    implementation 'com.squareup.picasso:picasso:2.71828'
-//    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.3'
-//    implementation 'androidx.activity:activity-ktx:1.4.0'
-//    implementation 'androidx.fragment:fragment-ktx:1.4.0'
-//    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1'
-//    implementation 'com.google.dagger:dagger:2.38.1'
-//    kapt 'com.google.dagger:dagger-compiler:2.38.1'
+    viewmodel = "androidx.lifecycle:lifecycle-viewmodel-ktx:$viewmodelVersion"
+    viewbindingpropertydelegate = "com.github.kirich1409:viewbindingpropertydelegate-noreflection:$viewBindingVersion"
 }
