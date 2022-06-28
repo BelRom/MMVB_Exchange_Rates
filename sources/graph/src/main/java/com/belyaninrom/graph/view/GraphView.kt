@@ -1,19 +1,19 @@
-package com.belyaninrom.home.view
+package com.belyaninrom.graph.view
 
 import android.content.Context
 import android.util.AttributeSet
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.isVisible
 import by.kirich1409.viewbindingdelegate.viewBinding
-import com.belyaninrom.home.databinding.FragmentHomeBinding
+import com.belyaninroom.graph.databinding.FragmentGraphBinding
 
-class HomeView @JvmOverloads constructor(
+class GraphView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
-) : ConstraintLayout(context, attrs, defStyleAttr), IHomeView {
+) : ConstraintLayout(context, attrs, defStyleAttr), IGraphView {
 
-    val binding by viewBinding (FragmentHomeBinding::bind)
+    val binding by viewBinding (FragmentGraphBinding::bind)
 
     override fun showProgressBar() {
         binding.progressBar.isVisible = true
@@ -24,7 +24,7 @@ class HomeView @JvmOverloads constructor(
     }
 }
 
-interface IHomeView {
+interface IGraphView {
 
     fun showProgressBar()
 

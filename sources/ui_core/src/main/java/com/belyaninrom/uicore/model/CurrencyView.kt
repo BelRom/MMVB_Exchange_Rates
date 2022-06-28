@@ -1,6 +1,6 @@
-package com.belyaninrom.core_api.dto
+package com.belyaninrom.uicore.model
 
-data class CurrencyView (
+open class CurrencyView (
     val tradeDate: String,
     val tradeTime: String,
     val secId: String,

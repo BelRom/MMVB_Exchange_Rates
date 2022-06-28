@@ -51,6 +51,7 @@ dependencies {
     implementation project(':sources:home')
     implementation project(':sources:graph')
     implementation project(':sources:network')
+    implementation project(':sources:ui_core')
 
     implementation navigationDependencies.values()
     implementation retrofit

@@ -1,4 +1,4 @@
-package com.belyaninrom.home.model
+package com.belyaninrom.core_api.model
 
 sealed class Result<out T : Any> {
     object StartLoading: Result<Nothing>()

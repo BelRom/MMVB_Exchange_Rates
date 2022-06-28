@@ -42,6 +42,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 
     implementation project(':sources:network')
+    implementation project(':sources:ui_core')
 
     implementation room
     implementation dagger

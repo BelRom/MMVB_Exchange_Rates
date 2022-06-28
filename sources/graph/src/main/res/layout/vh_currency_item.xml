@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/root_l_l"
+    android:layout_marginBottom="8dp">
+
+    <TextView
+        android:id="@+id/date_t_v"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|start"
+        android:layout_weight="2"
+        android:textColor="@color/colorTextPrimary"
+        android:textSize="24sp"
+        tools:text="CAD/RUB" />
+
+    <TextView
+        android:id="@+id/rate_t_v"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="1"
+        android:textColor="@color/colorTextPrimary"
+        android:textSize="24sp"
+        tools:text="43.8661" />
+</LinearLayout>

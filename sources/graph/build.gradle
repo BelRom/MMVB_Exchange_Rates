@@ -2,6 +2,7 @@ plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
+    id 'androidx.navigation.safeargs.kotlin'
 }
 
 android {
@@ -48,7 +49,9 @@ dependencies {
     api project(':sources:core')
     implementation dagger
     kapt daggerCompiler
+    implementation project(path: ':sources:network')
     implementation project(':sources:core')
     implementation project(':sources:ui_core')
+    implementation project(':sources:main')
     implementation viewbindingpropertydelegate
 }

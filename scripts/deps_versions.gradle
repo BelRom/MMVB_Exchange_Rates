@@ -30,8 +30,9 @@ ext {
             'coroutines_android': "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion"
     ]
     navigationDependencies = [
-            'navigation_fragment': "androidx.navigation:navigation-fragment-ktx:$navVersion",
-            'navigation_ui'      : "androidx.navigation:navigation-ui-ktx:$navVersion"
+            'navigation_fragment'  : "androidx.navigation:navigation-fragment-ktx:$navVersion",
+            'navigation_ui'        : "androidx.navigation:navigation-ui-ktx:$navVersion",
+//            'navigation_safe_args' : "androidx.navigation:navigation-safe-args-gradle-plugin:$navVersion"
     ]
 
     material = "com.google.android.material:material:$materialVersion"

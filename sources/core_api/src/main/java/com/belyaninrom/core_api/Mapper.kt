@@ -7,12 +7,12 @@ fun CurrencyNetwork.toCurrencyDb() = CurrencyDb(
     this.rate
 )
 
-fun CurrencyDb.toCurrencyView() = CurrencyView(
+fun CurrencyDb.toCurrencyView() = com.belyaninrom.uicore.model.CurrencyView(
     this.tradeDate, this.tradeTime, this.secId,
     this.rate
 )
 
-fun CurrencyNetwork.toCurrencyView() = CurrencyView(
+fun CurrencyNetwork.toCurrencyView() = com.belyaninrom.uicore.model.CurrencyView(
     this.tradeDate, this.tradeTime, this.secId,
     this.rate
 )

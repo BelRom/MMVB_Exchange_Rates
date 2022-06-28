@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/root_l_l"
+    android:layout_marginBottom="8dp">
+
+<com.belyaninrom.uicore.view.GraphCustomView
+    android:layout_width="match_parent"
+    android:layout_height="250dp"
+    android:id="@+id/graph_custom_view"
+    app:dotsColor="#01579B"
+    app:lineColor="#B201579B"
+    app:gradientColor="#22786A"
+    app:backgroundColor="#FFFFFF"
+    android:layout_marginBottom="16dp"/>
+</FrameLayout>

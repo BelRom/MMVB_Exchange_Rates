@@ -13,9 +13,10 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.belyaninrom.home.view.CurrencyRVAdapter
-import com.belyaninrom.home.model.Result
+import com.belyaninrom.core_api.model.Result
 import com.belyaninrom.core_api.mediator.AppWithFacade
 import com.belyaninrom.home.di.HomeComponent
+import com.belyaninrom.home.view.HomeView
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.flow.collect
 import javax.inject.Inject
@@ -29,7 +30,9 @@ class HomeFragment: Fragment(R.layout.fragment_home) {
 
     private var recyclerView: RecyclerView? = null
     private var adapter = CurrencyRVAdapter {
-        findNavController().navigate(com.belyaninrom.main.R.id.action_homeFragment_to_graphFragment)
+//        val direction = com.belyaninrom.main.R.id.action_homeFragment_to_graphFragment
+        val direction = HomeFragmentDirections.actionHomeFragmentToGraphFragment(it.secId)
+        findNavController().navigate(direction)
     }
 
     override fun onAttach(context: Context) {

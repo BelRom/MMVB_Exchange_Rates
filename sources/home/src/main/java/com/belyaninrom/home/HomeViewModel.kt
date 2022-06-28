@@ -3,13 +3,11 @@ package com.belyaninrom.home
 import android.util.Log
 import androidx.lifecycle.*
 import com.belyaninrom.core_api.database.CurrenciesDatabaseContract
-import com.belyaninrom.core_api.database.DatabaseProvider
-import com.belyaninrom.core_api.dto.CurrencyView
+import com.belyaninrom.uicore.model.CurrencyView
 import com.belyaninrom.core_api.dto.toCurrencyDb
 import com.belyaninrom.core_api.dto.toCurrencyView
 import com.belyaninrom.network.NetworkMoex
-import com.belyaninrom.network.model.CurrencyNetwork
-import com.belyaninrom.home.model.Result
+import com.belyaninrom.core_api.model.Result
 import com.belyaninrom.network.model.NetworkResult
 import kotlinx.coroutines.CoroutineExceptionHandler
 import javax.inject.Inject
