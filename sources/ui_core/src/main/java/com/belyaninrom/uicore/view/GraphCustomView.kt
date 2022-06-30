@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
 import android.util.Log
+import android.view.MotionEvent
 import android.view.View
 import com.belyaninrom.uicore.R
 import com.belyaninrom.uicore.model.CurrencyView
@@ -32,6 +33,9 @@ class GraphCustomView(context: Context, attrs: AttributeSet?): View(context, att
     var minPrice = 0L
     var maxPrice = 1L
     var priceRange = 1L
+
+    var selectedX: Float? = null
+    var selectedY: Float? = null
 
     var paddingBottomGraph = 55 * density
     var paddingTopGraph = 55 * density
@@ -131,18 +135,51 @@ class GraphCustomView(context: Context, attrs: AttributeSet?): View(context, att
         }
     }
 
+    override fun onTouchEvent(event: MotionEvent?): Boolean {
+        if (event?.action == MotionEvent.ACTION_UP) {
+            selectedX = event.x
+            selectedY = event.y
+            invalidate()
+            return true
+        }
+        return true
+    }
+
     override fun onDraw(canvas: Canvas?) {
-        paint.color = Color.WHITE
+        paint.color = backgroundColor
         canvas?.drawRect(0F, 0F, width.toFloat(), height.toFloat(), paint)
 
-
         paint.shader = gradient
+        paint.style = Paint.Style.FILL
         canvas?.drawRect(0F, 0F, width.toFloat(), height.toFloat(), paint)
         paint.shader = null
         if (items.size == 0)
             return
 
         drawGraphLine(canvas)
+        drawTouchLine(canvas)
+        drawTouchText(canvas)
+    }
+
+    private fun drawTouchText(canvas: Canvas?) {
+        var firstDistance = width.toDouble()
+        var nearDots: CurrencyView? = null
+        drawDots(){item, position, x, y ->
+            val distance = Math.abs(x.toDouble() - (selectedX?.toDouble() ?: 0.0))
+            if (firstDistance > distance) {
+                firstDistance = distance
+                nearDots = item
+            }
+        }
+        Log.d("GraphCustomView", "tradeDate ${nearDots?.tradeDate}")
+    }
+
+    private fun drawTouchLine(canvas: Canvas?) {
+        selectedX?.let {
+            paint.color = Color.GRAY
+            paint.strokeWidth = 1f * density
+            canvas?.drawLine(it, 15f, it, height.toFloat() - (density * 33), paint)
+        }
     }
 
 
@@ -176,7 +213,6 @@ class GraphCustomView(context: Context, attrs: AttributeSet?): View(context, att
         canvas?.drawPath(path, paint)
 
         paint.strokeWidth = 4 * density
-//        paintClear.strokeWidth = 4 * density
         drawDots { item, position, x, y ->
             paint.color = dotsColor
             canvas?.drawCircle(x, y, 2 * density, paint)
