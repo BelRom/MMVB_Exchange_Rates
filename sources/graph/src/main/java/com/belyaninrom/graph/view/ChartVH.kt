@@ -9,6 +9,7 @@ import com.belyaninroom.graph.databinding.VhChartBinding
 class ChartVH(val binding: VhChartBinding) : RecyclerView.ViewHolder(binding.root) {
 
     fun bind(items: List<GraphAdapterItem.Currency>) {
+        setIsRecyclable(false)
         binding.graphCustomView.setItems(items.map {
             CurrencyView(
                 it.tradeDate,

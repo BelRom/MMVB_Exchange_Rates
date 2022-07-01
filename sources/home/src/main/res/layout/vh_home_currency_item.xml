@@ -5,7 +5,9 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:id="@+id/root_l_l"
-    android:layout_marginBottom="8dp">
+    android:layout_marginBottom="8dp"
+    android:layout_marginStart="16dp"
+    android:layout_marginEnd="16dp">
 
     <TextView
         android:id="@+id/sec_id_t_v"
@@ -13,7 +15,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal|start"
         android:layout_weight="2"
-        android:textColor="@color/colorTextPrimary"
+        android:textColor="@color/textColor"
         android:textSize="24sp"
         tools:text="CAD/RUB" />
 
@@ -23,7 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_weight="1"
-        android:textColor="@color/colorTextPrimary"
+        android:textColor="@color/textColor"
         android:textSize="24sp"
         tools:text="43.8661" />
 </LinearLayout>

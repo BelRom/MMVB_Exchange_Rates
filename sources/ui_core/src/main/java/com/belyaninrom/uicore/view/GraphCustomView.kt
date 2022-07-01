@@ -22,6 +22,8 @@ class GraphCustomView(context: Context, attrs: AttributeSet?): View(context, att
     val gradientColor: Int
     val lineColor: Int
     val backgroundColor: Int
+    val textColor: Int
+    val selectedDotsColor: Int
     val sizeDateText = 12 * scaledDensity
 
 
@@ -56,6 +58,8 @@ class GraphCustomView(context: Context, attrs: AttributeSet?): View(context, att
             gradientColor = typedArray.getColor(R.styleable.GraphCustomView_gradientColor, Color.GREEN)
             lineColor = typedArray.getColor(R.styleable.GraphCustomView_lineColor, Color.GREEN)
             backgroundColor = typedArray.getColor(R.styleable.GraphCustomView_backgroundColor, Color.GRAY)
+            textColor = typedArray.getColor(R.styleable.GraphCustomView_textColor, Color.BLACK)
+            selectedDotsColor = typedArray.getColor(R.styleable.GraphCustomView_selectedDotsColor, Color.CYAN)
         } finally {
             typedArray.recycle()
         }
@@ -77,7 +81,10 @@ class GraphCustomView(context: Context, attrs: AttributeSet?): View(context, att
     fun setItems(tradeApplications: List<CurrencyView>) {
         items.clear()
         items.addAll(
-            tradeApplications
+            tradeApplications.map {
+                it.tradeDataDate = dateFormat.parse(it.tradeDate).time
+                it
+            }.toList()
         )
         val price = tradeApplications.map { it.rate.toDouble() }
         minPrice = price.minOf { it }.toLong()
@@ -142,26 +149,39 @@ class GraphCustomView(context: Context, attrs: AttributeSet?): View(context, att
             invalidate()
             return true
         }
+        if (event?.action == MotionEvent.ACTION_MOVE) {
+            selectedX = event.x
+            selectedY = event.y
+            invalidate()
+            return true
+        }
         return true
     }
 
     override fun onDraw(canvas: Canvas?) {
+        canvas?.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR)
+
         paint.color = backgroundColor
+        paint.style = Paint.Style.FILL
         canvas?.drawRect(0F, 0F, width.toFloat(), height.toFloat(), paint)
 
         paint.shader = gradient
-        paint.style = Paint.Style.FILL
         canvas?.drawRect(0F, 0F, width.toFloat(), height.toFloat(), paint)
         paint.shader = null
         if (items.size == 0)
             return
 
         drawGraphLine(canvas)
-        drawTouchLine(canvas)
-        drawTouchText(canvas)
+        drawTouchTextDots(canvas)
     }
 
-    private fun drawTouchText(canvas: Canvas?) {
+    val textDateFormat = SimpleDateFormat("dd.MM.yy")
+
+    private fun drawTouchTextDots(canvas: Canvas?) {
+
+        if (selectedX == null)
+            return
+
         var firstDistance = width.toDouble()
         var nearDots: CurrencyView? = null
         drawDots(){item, position, x, y ->
@@ -170,6 +190,21 @@ class GraphCustomView(context: Context, attrs: AttributeSet?): View(context, att
                 firstDistance = distance
                 nearDots = item
             }
+        }
+
+        paint.color = textColor
+        paint.style = Paint.Style.FILL
+        paint.strokeWidth = 1f
+        val text = "${textDateFormat.format(nearDots?.tradeDataDate)}  ${nearDots?.rate}"
+        val widthText = paint.measureText(text)
+        canvas?.drawText(text, ((width / 2) - (widthText / 2)).toFloat(), (height - (14 * scaledDensity)), paint)
+
+        nearDots?.let {
+            val xD = calculateCoordinateX(it)
+            val yD = calculateCoordinateY(it)
+            paint.color = selectedDotsColor
+            paint.style = Paint.Style.FILL
+            canvas?.drawCircle(xD, yD, (5 * density), paint)
         }
         Log.d("GraphCustomView", "tradeDate ${nearDots?.tradeDate}")
     }
@@ -215,7 +250,7 @@ class GraphCustomView(context: Context, attrs: AttributeSet?): View(context, att
         paint.strokeWidth = 4 * density
         drawDots { item, position, x, y ->
             paint.color = dotsColor
-            canvas?.drawCircle(x, y, 2 * density, paint)
+            canvas?.drawCircle(x, y, 1 * density, paint)
         }
     }
 
@@ -228,16 +263,23 @@ class GraphCustomView(context: Context, attrs: AttributeSet?): View(context, att
 
         for (i in 0 until items.size) {
             val item = items[i]
-            val currentDate = dateFormat.parse(item.tradeDate).time
-            val xD =
-                (((currentDate.toDouble() - startDate.toDouble()) / dateRange.toDouble()) * (widthGraph.toDouble())).toFloat() + paddingEndGraph
+            val xD = calculateCoordinateX(item)
+            val yD = calculateCoordinateY(item)
 
-            val yD = heightGraph - ((((item.rate) - minPrice.toDouble()) / priceRange.toDouble()) * heightGraph).toFloat() + paddingTopGraph
-            Log.d(
+            Log.d (
                 "HistoryTradeView",
-                "x $xD currentDate ${currentDate} startDate $startDate dateRange $dateRange widthGraph $widthGraph"
+                "x $xD tradeDataDate ${item.tradeDataDate} startDate $startDate dateRange $dateRange widthGraph $widthGraph"
             )
+
             callBack(item, i + 1, xD, yD)
         }
+    }
+
+    fun calculateCoordinateX(item: CurrencyView): Float {
+        return (((item.tradeDataDate.toDouble() - startDate.toDouble()) / dateRange.toDouble()) * (widthGraph.toDouble())).toFloat() + paddingEndGraph
+    }
+
+    fun calculateCoordinateY(item: CurrencyView): Float {
+        return heightGraph - ((((item.rate) - minPrice.toDouble()) / priceRange.toDouble()) * heightGraph).toFloat() + paddingTopGraph
     }
 }

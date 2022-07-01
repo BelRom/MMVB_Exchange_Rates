@@ -22,6 +22,7 @@ import com.belyaninroom.graph.databinding.FragmentGraphBinding
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
+import java.util.*
 import javax.inject.Inject
 
 class GraphFragment: Fragment(R.layout.fragment_graph) {
@@ -75,10 +76,13 @@ class GraphFragment: Fragment(R.layout.fragment_graph) {
                 }
             }
         }
+        val calendar = Calendar.getInstance()
+        calendar.add(Calendar.DAY_OF_MONTH, -1)
+        val date = SimpleDateFormat("yyyy-MM-dd").format(calendar.time)
         viewModel.getListCurrency(
             args.secId,
-            "2022-04-06",
-            "2022-06-28"
+            "2022-05-06",
+            date
         )
     }
 }
