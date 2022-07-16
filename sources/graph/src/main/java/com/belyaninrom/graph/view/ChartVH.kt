@@ -6,7 +6,7 @@ import com.belyaninrom.graph.model.GraphAdapterItem
 import com.belyaninrom.uicore.model.CurrencyView
 import com.belyaninroom.graph.databinding.VhChartBinding
 
-class ChartVH(val binding: VhChartBinding) : RecyclerView.ViewHolder(binding.root) {
+class ChartVH(val binding: VhChartBinding) : GraphVH(binding) {
 
     fun bind(items: List<GraphAdapterItem.Currency>) {
         setIsRecyclable(false)

@@ -248,10 +248,10 @@ class GraphCustomView(context: Context, attrs: AttributeSet?): View(context, att
         canvas?.drawPath(path, paint)
 
         paint.strokeWidth = 4 * density
-        drawDots { item, position, x, y ->
-            paint.color = dotsColor
-            canvas?.drawCircle(x, y, 1 * density, paint)
-        }
+//        drawDots { item, position, x, y ->
+//            paint.color = dotsColor
+//            canvas?.drawCircle(x, y, 1 * density, paint)
+//        }
     }
 
 

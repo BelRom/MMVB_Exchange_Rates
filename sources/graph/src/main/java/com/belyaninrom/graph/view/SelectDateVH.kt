@@ -11,7 +11,7 @@ import com.google.android.material.datepicker.MaterialDatePicker
 import java.text.SimpleDateFormat
 import java.util.*
 
-class SelectDateVH(val binding: VhSelectDateBinding) : RecyclerView.ViewHolder(binding.root) {
+class SelectDateVH(val binding: VhSelectDateBinding) : GraphVH(binding) {
 
     val format = SimpleDateFormat("dd.MM.yyyy")
 

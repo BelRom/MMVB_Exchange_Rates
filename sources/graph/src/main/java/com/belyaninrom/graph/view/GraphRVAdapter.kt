@@ -13,7 +13,7 @@ import java.text.SimpleDateFormat
 import kotlin.collections.ArrayList
 
 class GraphRVAdapter(val fragmentManager: FragmentManager, val listener: Listener) :
-    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    RecyclerView.Adapter<GraphVH>() {
 
     companion object {
         const val TYPE_CURRENCY = 0
@@ -34,7 +34,7 @@ class GraphRVAdapter(val fragmentManager: FragmentManager, val listener: Listene
     }
 
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GraphVH {
         val inflater = LayoutInflater.from(parent.context)
         return when (viewType) {
             TYPE_CHART -> {
@@ -68,7 +68,7 @@ class GraphRVAdapter(val fragmentManager: FragmentManager, val listener: Listene
         }
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: GraphVH, position: Int) {
         when (val item = items.get(position)) {
             is GraphAdapterItem.Currency -> (holder as CurrencyVH).bind(item)
             is GraphAdapterItem.Chart -> (holder as ChartVH).bind(items.filter {

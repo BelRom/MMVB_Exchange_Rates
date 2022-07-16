@@ -6,7 +6,7 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.belyaninrom.uicore.model.CurrencyView
 import com.belyaninroom.graph.databinding.VhCurrencyItemBinding
 
-class CurrencyVH(val binding: VhCurrencyItemBinding): RecyclerView.ViewHolder(binding.root) {
+class CurrencyVH(val binding: VhCurrencyItemBinding): GraphVH(binding) {
 
     fun bind (currency: CurrencyView) {
         binding.rateTV.text = currency.rate.toString()
